@@ -1,0 +1,229 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0f0e0c;
+  --ink2: #1e1c19;
+  --ink3: #2e2b26;
+  --cream: #faf7f2;
+  --cream2: #f3ede4;
+  --cream3: #e9e1d5;
+  --cream4: #ddd5c7;
+  --muted: #8c8479;
+  --faint: #b5aea5;
+  --ghost: #d4cdc6;
+  --gold: #c49a2a;
+  --gold2: #e0b340;
+  --gold3: #f5d78a;
+  --gold4: #fdf3d8;
+  --ruby: #c0392b;
+  --ruby2: rgba(192, 57, 43, 0.12);
+  --jade: #1a8a4a;
+  --jade2: rgba(26, 138, 74, 0.12);
+  --cobalt: #2563b8;
+  --cobalt2: rgba(37, 99, 184, 0.1);
+  --amber: #c57c1a;
+  --amber2: rgba(197, 124, 26, 0.12);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+}
+
+body { margin: 0; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--cream4); border-radius: 2px; }
+::selection { background: var(--gold3); color: var(--ink); }
+
+.font-serif { font-family: 'Fraunces', serif; }
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes popIn {
+  from { transform: scale(0.85) translateY(16px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes bounceIn {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60%  { transform: scale(1.1) rotate(3deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+@keyframes xpFill {
+  from { width: 0%; }
+}
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+@keyframes toastIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-fade-in    { animation: fadeIn 0.25s ease both; }
+.animate-pop-in     { animation: popIn 0.35s cubic-bezier(.34,1.4,.64,1) both; }
+.animate-bounce-in  { animation: bounceIn 0.5s cubic-bezier(.34,1.56,.64,1) both; }
+.animate-toast-in   { animation: toastIn 0.32s cubic-bezier(.34,1.3,.64,1) both; }
+.animate-spin-slow  { animation: spin 0.8s linear infinite; }
+
+/* Task item priority stripe */
+.priority-stripe-high   { border-left: 3px solid var(--ruby) !important; }
+.priority-stripe-medium { border-left: 3px solid var(--amber) !important; }
+.priority-stripe-low    { border-left: 3px solid var(--jade) !important; }
+
+/* Input base */
+.input-base {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--cream3);
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 44px;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: 'Outfit', sans-serif;
+}
+.input-base:focus {
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 3px rgba(196,154,42,0.12);
+}
+.input-base.error {
+  border-color: var(--ruby);
+  box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+}
+
+/* Textarea */
+.textarea-base {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--cream3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--ink);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  font-family: 'Outfit', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.6;
+}
+.textarea-base:focus {
+  border-color: var(--gold2);
+  box-shadow: 0 0 0 3px rgba(196,154,42,0.12);
+}
+
+/* Btn primary */
+.btn-primary {
+  background: var(--ink);
+  color: var(--gold3);
+  border: 1.5px solid transparent;
+  border-radius: 10px;
+  height: 46px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Outfit', sans-serif;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover { background: var(--ink2); box-shadow: 0 4px 16px rgba(15,14,12,0.15); }
+.btn-primary:active { transform: scale(0.99); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Password strength */
+.str-bar { display: flex; gap: 4px; margin-top: 6px; }
+.str-seg { flex: 1; height: 3px; border-radius: 2px; background: var(--cream3); transition: background 0.3s; }
+.str-1 .str-seg:nth-child(-n+1) { background: var(--ruby); }
+.str-2 .str-seg:nth-child(-n+2) { background: var(--amber); }
+.str-3 .str-seg:nth-child(-n+3) { background: var(--gold2); }
+.str-4 .str-seg:nth-child(-n+4) { background: var(--jade); }
+
+/* ── DARK MODE ───────────────────────────────────────────── */
+/* Dark mode is toggled via JS on :root CSS vars directly */
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Sidebar collapses to icon bar on mobile */
+  aside {
+    width: 56px !important;
+  }
+  aside .sidebar-label,
+  aside .sidebar-count,
+  aside .sidebar-user-info,
+  aside .sidebar-search,
+  aside .sidebar-brand-name {
+    display: none !important;
+  }
+  /* Stack layout on mobile */
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  /* Smaller pomo drawer */
+  .pomo-drawer {
+    width: 100% !important;
+  }
+}
+
+/* ── KEYBOARD SHORTCUT BADGE ─────────────────────────────── */
+kbd {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── DRAG AND DROP ───────────────────────────────────────── */
+[draggable="true"] {
+  user-select: none;
+}
+
+/* ── TAG STYLES ──────────────────────────────────────────── */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: 100px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── DUE DATE URGENCY ────────────────────────────────────── */
+.due-overdue { color: var(--ruby) !important; }
+.due-soon { color: var(--amber) !important; }
+
+/* ── SEARCH INPUT FOCUS ──────────────────────────────────── */
+.search-input:focus {
+  border-color: rgba(196,154,42,0.4) !important;
+  box-shadow: 0 0 0 2px rgba(196,154,42,0.1);
+}

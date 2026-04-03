@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String   @id @default(uuid())
+  name                String
+  email               String   @unique
+  passwordHash        String
+  emailVerified       Boolean  @default(false)
+  verificationToken   String?
+  verificationExpires BigInt?
+  avatarColor         String   @default("#e0b340")
+  xp                  Int      @default(0)
+  level               Int      @default(1)
+  streak              Int      @default(0)
+  lastActive          String?
+  completedCount      Int      @default(0)
+  pomosTotal          Int      @default(0)
+  minutesFocused      Int      @default(0)
+  createdAt           BigInt   @default(0)
+  tasks               Task[]
+  sessions            Session[]
+}
+
+model Task {
+  id           String   @id @default(uuid())
+  userId       String
+  title        String
+  priority     String   @default("medium")
+  pomoDuration Int      @default(25)
+  reminderTime String?
+  dueDate      String?
+  status       String   @default("active")
+  notes        String   @default("")
+  tags         String   @default("")
+  recurring    String?
+  completedAt  BigInt?
+  createdAt    BigInt   @default(0)
+  updatedAt    BigInt   @default(0)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id        String @id @default(uuid())
+  userId    String
+  expiresAt BigInt
+  createdAt BigInt @default(0)
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
